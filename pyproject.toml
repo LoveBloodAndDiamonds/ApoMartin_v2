@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "apomartin-v2"
+version = "0.1.0"
+description = ""
+authors = ["blowyourbra1n <blowyourbra1n@mail.ru>"]
+readme = "README.md"
+packages = [{include = "apomartin_v2"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytelegrambotapi = "^4.12.0"
+json5 = "^0.9.14"
+flask = "^2.3.2"
+python-binance = "^1.0.17"
+loguru = "^0.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
