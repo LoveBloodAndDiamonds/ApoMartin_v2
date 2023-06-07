@@ -123,6 +123,20 @@ files = [
 frozenlist = ">=1.1.0"
 
 [[package]]
+name = "art"
+version = "5.9"
+description = "ASCII Art Library For Python"
+optional = false
+python-versions = ">=2.7"
+files = [
+    {file = "art-5.9-py2.py3-none-any.whl", hash = "sha256:9b02463468fc51c77200dadee970cf02c9576008c4f3b99d7ed02371ec037bd1"},
+    {file = "art-5.9.tar.gz", hash = "sha256:6a311ec0a227c6554c6789e91e74c3f2c86453a2a8e76947788695b7a91ccff0"},
+]
+
+[package.extras]
+dev = ["bandit (>=1.5.1)", "codecov (>=2.0.15)", "coverage (>=4.1)", "pydocstyle (>=3.0.0)", "vulture (>=1.0)"]
+
+[[package]]
 name = "async-timeout"
 version = "4.0.2"
 description = "Timeout context manager for asyncio programs"
@@ -723,6 +737,20 @@ files = [
 six = ">=1.5"
 
 [[package]]
+name = "python-dotenv"
+version = "1.0.0"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "python-dotenv-1.0.0.tar.gz", hash = "sha256:a8df96034aae6d2d50a4ebe8216326c61c3eb64836776504fcca410e5937a3ba"},
+    {file = "python_dotenv-1.0.0-py3-none-any.whl", hash = "sha256:f5971a9226b701070a4bf2c38c89e5a3f0d64de8debda981d1db98583009122a"},
+]
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "pytz"
 version = "2023.3"
 description = "World timezone definitions, modern and historical"
@@ -1181,4 +1209,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "7a920e718a0cefe0dfc76767be60f6a6b790939dc89340e87f2e1c5c2ff5e7ff"
+content-hash = "002efeee5b81c5581d46199ef75f7296f587ee1df95900aefedfdf8fd86fff1d"
