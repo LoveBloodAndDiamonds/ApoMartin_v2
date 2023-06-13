@@ -1,6 +1,5 @@
 {
   "margin_type": "CROSSED",
-  "leverage": "max",
   "margin_percent": 15,
   "long_positions_amount": 0.5,
   "short_positions_amount": 0.5,
@@ -10,5 +9,6 @@
   "min_to_add_on": -0.3,
   "add_on_kf": 1.1,
   "martin_kf": 1.25,
-  "take_profit": 2 // TP in % from avg entry price
+  "take_profit": 2, // TP in % from avg entry price
+  "take_profits_qty": 3, // Количество тейк-профитов
 }
