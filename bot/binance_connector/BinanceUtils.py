@@ -1,3 +1,4 @@
+import random
 import time
 from typing import Tuple
 
@@ -106,16 +107,16 @@ class BinanceUtils:
                 )
 
     @log_arguments
-    def create_market_order(self, symbol: str, pos_type: str, qty: float, side: str) -> int:
+    def create_market_order(self, symbol: str, pos_type: str, qty: float, side: str, position_side: str) -> int:
         """Create custom market order to open/add_on/close position."""
         try:
             return self.binance.futures_create_order(
                 symbol=symbol,
                 type='MARKET',
                 side=side,
+                positionSide=position_side,
                 quantity=qty,
-                reduceOnly=True if pos_type == 'close' else False,
-                newClientOrderId=pos_type
+                newClientOrderId=str(pos_type) + "_" + str(random.randint(100000, 999999))
             )['orderId']
         except Exception as err:
             raise CustomException(
@@ -141,6 +142,26 @@ class BinanceUtils:
             )
 
     @log_arguments
+    def create_limit_order(self, symbol: str, side: str, position_side: str, price: float, qty: float, pos_type: str):
+        close_side = "SELL" if side == "BUY" else "BUY"
+        try:
+            return self.binance.futures_create_order(
+                symbol=symbol,
+                type="LIMIT",
+                positionSide=position_side,
+                side=close_side,
+                price=price,
+                quantity=qty,
+                timeInForce="GTC",
+                newClientOrderId=str(pos_type) + "_" + str(random.randint(100000, 999999))
+            )
+        except Exception as err:
+            raise CustomException(
+                CustomException.SEND_ALERT,
+                f"Ошибка при создании лимитного ордера на {symbol}: {err}"
+            )
+
+    @log_arguments
     def get_income_history(self, symbol: str, start_time: int, end_time=False) -> Tuple[float, float]:
         """Returns comission and total profit from time to time."""
         income_history_kwargs = {"symbol": symbol, "startTime": start_time - 1000}
@@ -153,8 +174,10 @@ class BinanceUtils:
         return comission, total_profit
 
     @log_arguments
-    def get_orders_history(self, symbol: str) -> list:
-        """Returns all orders history till major long."""
+    def get_orders_history(self, symbol: str, signal_side: str) -> list:
+        """Returns all orders history till major long.
+        :param symbol: ticker
+        :param signal_side: side of sygnal"""
         # start time < end time
         data = []
         end_time = int(time.time())
@@ -164,8 +187,10 @@ class BinanceUtils:
                     symbol=symbol,
                     startTime=start_time * 1000,
                     endTime=end_time * 1000 + 10000)):
-                data.append(order)
-                if order['clientOrderId'] == 'major_long':
+                client_order_id: str = order['clientOrderId']
+                if signal_side in client_order_id:
+                    data.append(order)
+                if client_order_id.startswith(f"major_{signal_side}"):
                     return list(reversed(data))
             end_time = start_time
             start_time = int(start_time - 60 * 60 * 24 * 7)

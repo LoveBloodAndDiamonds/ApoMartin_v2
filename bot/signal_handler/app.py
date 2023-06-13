@@ -19,9 +19,9 @@ def sygnal_handler():
     config = read_config()
     data = json.loads(request.data.decode('utf-8'))
     if data["secret"] == os.getenv("WEBHOOK_PASSCODE"):
-        logger.info(f"Получен сигнал <{data['side']}> на монету <{data['symbol']}>")
+        logger.info(f"Получен сигнал <{data['type']}> на монету <{data['symbol']}>")
         symbol = data['symbol'].split('.P')[0]
-        side = data['side']
+        side = data['type']
         if symbol not in config['ignore_symbols']:
             print(symbol, side)
             th = Thread()

@@ -36,9 +36,10 @@ class SymbolsDecimals:
                             step_size = len(step_size) - 2
                     precision_dict[i['symbol']] = [tick_size, step_size]
             self.symbols_data = precision_dict
-            print(self.symbols_data)
             sleep(self.update_time)
 
 
 symbols_decimals_obj = SymbolsDecimals()
-Thread(target=symbols_decimals_obj.update_data).start()
+th = Thread(target=symbols_decimals_obj.update_data)
+th.daemon = True
+th.start()

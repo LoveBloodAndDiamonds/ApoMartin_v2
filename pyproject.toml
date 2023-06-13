@@ -15,6 +15,7 @@ python-binance = "^1.0.17"
 loguru = "^0.7.0"
 art = "^5.9"
 python-dotenv = "^1.0.0"
+pendulum = "^2.1.2"
 
 
 [build-system]
