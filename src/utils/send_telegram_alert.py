@@ -2,7 +2,6 @@ import os
 
 import requests
 
-from .configreader import config
 from .logs_configure import logger
 
 
