@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import art
 import telebot
 
-from src.utils import read_config, update_config
+from utils import read_config, update_config
 
 
 load_dotenv()

@@ -1,10 +1,10 @@
-from src.binance_connector.BinanceUtils import BinanceUtils
-from src.binance_connector.CustomException import CustomException
-from src.binance_connector.SymbolsDecimals import symbols_decimals_obj
-from src.utils import read_config, logger, send_telegram_alert
+from binance_connector.BinanceUtils import BinanceUtils
+from binance_connector.CustomException import CustomException
+from binance_connector.SymbolsDecimals import symbols_decimals_obj
+from utils import read_config, logger, send_telegram_alert
 
 
-class MinirSignal(BinanceUtils):
+class MinorSignal(BinanceUtils):
     signal_type: str = "minor"
 
     def __init__(self, symbol: str, side: str):

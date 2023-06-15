@@ -11,7 +11,7 @@ def set_datetime(record):
 
 logger.remove(0)
 logger.configure(patcher=set_datetime)
-logger.add('../../logs/logs.log',
+logger.add('../logs/logs.log',
            format="<white>{extra[datetime]:YYYY DD.MM HH:mm:ss}</white> | "
                   "<level>{level}</level>| "
                   "|{name} {function} line:{line}| "
