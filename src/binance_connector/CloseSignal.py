@@ -1,6 +1,6 @@
-from bot.binance_connector.BinanceUtils import BinanceUtils
-from bot.binance_connector.CustomException import CustomException
-from bot.utils import read_config, logger, send_telegram_alert
+from src.binance_connector.BinanceUtils import BinanceUtils
+from src.binance_connector.CustomException import CustomException
+from src.utils import read_config, logger, send_telegram_alert
 
 
 class CloseSignal(BinanceUtils):

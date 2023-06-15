@@ -4,7 +4,7 @@ import os
 
 from binance import Client
 
-from bot.utils import logger
+from src.utils import logger
 
 
 """Init binance client on startup to decrease delay when app work."""

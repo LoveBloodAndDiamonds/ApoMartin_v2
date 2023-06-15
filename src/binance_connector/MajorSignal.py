@@ -1,6 +1,6 @@
-from bot.binance_connector.BinanceUtils import BinanceUtils
-from bot.binance_connector.CustomException import CustomException
-from bot.utils import read_config, logger, send_telegram_alert
+from src.binance_connector.BinanceUtils import BinanceUtils
+from src.binance_connector.CustomException import CustomException
+from src.utils import read_config, logger, send_telegram_alert
 
 
 class MajorSignal(BinanceUtils):
@@ -48,7 +48,7 @@ class MajorSignal(BinanceUtils):
                     return
 
                 # Проверка на то, допустимая ли сейчас просадка, для открытия новых ордеров
-                if not total_pnl > -(balance * self.config["available_drawdown"]) / 100:
+                if not total_pnl >= -(balance * self.config["available_drawdown"]) / 100:
                     logger.info(f"{self.symbol}, {self.side}, {self.position_side} превышен размер просадки.")
                     return
 

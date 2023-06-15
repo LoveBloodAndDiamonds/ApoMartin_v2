@@ -1,7 +1,7 @@
-from bot.binance_connector.BinanceUtils import BinanceUtils
-from bot.binance_connector.CustomException import CustomException
-from bot.binance_connector.SymbolsDecimals import symbols_decimals_obj
-from bot.utils import read_config, logger, send_telegram_alert
+from src.binance_connector.BinanceUtils import BinanceUtils
+from src.binance_connector.CustomException import CustomException
+from src.binance_connector.SymbolsDecimals import symbols_decimals_obj
+from src.utils import read_config, logger, send_telegram_alert
 
 
 class MinirSignal(BinanceUtils):

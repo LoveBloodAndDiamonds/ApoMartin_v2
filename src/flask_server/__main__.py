@@ -41,7 +41,7 @@ def test():
     kw = {
         "symbol": "XRPUSDT",
         "side": "SELL",
-        "type": "close"
+        "type": "major"
     }
     # ss = StartStrategy(**kw)
     # ss.start_startegy()

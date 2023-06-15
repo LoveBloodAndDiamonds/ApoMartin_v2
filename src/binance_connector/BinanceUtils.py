@@ -4,10 +4,10 @@ from typing import Tuple
 
 from binance import Client
 
-from bot.binance_connector.CustomException import CustomException
-from bot.binance_connector.SymbolsDecimals import symbols_decimals_obj
-from bot.binance_connector.client_instance import binance_client
-from bot.utils import log_arguments, read_config
+from src.binance_connector.CustomException import CustomException
+from src.binance_connector.SymbolsDecimals import symbols_decimals_obj
+from src.binance_connector.client_instance import binance_client
+from src.utils import log_arguments, read_config
 
 config = read_config()
 

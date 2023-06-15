@@ -1,14 +1,14 @@
 {
   margin_type: "ISOLATED",
   margin_percent: 15,
-  long_positions_amount: 0.5,
-  short_positions_amount: 0.5,
+  long_positions_amount: 20,
+  short_positions_amount: 30,
   available_drawdown: 5,
-  take_type: "LIMIT",
   min_to_close: -0.3,
   min_to_add_on: -0.3,
   add_on_kf: 1.1,
   martin_kf: 1.25,
   take_profit: 2,
   take_profits_qty: 3,
+  ignore_symbols: []
 }

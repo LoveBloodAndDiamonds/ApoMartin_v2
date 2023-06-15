@@ -41,9 +41,28 @@ def send_welcome(message):
 @bot.message_handler(func=lambda message: message.text == "Настройки ⚙️")
 @auth
 def settings(message):
-    cfg = read_config()
-    text = 'Settings text:'
-    bot.reply_to(message, text, reply_markup=create_keyboard())
+    try:
+        cfg = read_config()
+        keys = {
+              "margin_type": "Режим маржи: ",
+              "margin_percent": "Процент маржи в позицию: ",
+              "long_positions_amount": "Соотношение лонгов: ",
+              "short_positions_amount": "Соотношение шортов: ",
+              "available_drawdown": "Допустимая просадка: ",
+              "min_to_close":  "Мин. % для закрытия: ",
+              "min_to_add_on": "Мин. % для добавления: ",
+              "add_on_kf": "Коэф. добавления: ",
+              "martin_kf": "Коэф. мартингейла: ",
+              "take_profit": "Тейк-профит от ср.: ",
+              "take_profits_qty": "Количество тейков: ",
+              "ignore_symbols": "Игнорируемые тикеры: "
+        }
+        text = '<b>Текущие настройки:</b>\n'
+        for el in cfg:
+            text += f"{keys[el]}<b>{cfg[el]}</b>\n"
+        bot.reply_to(message, text, reply_markup=create_keyboard())
+    except Exception as error:
+        bot.reply_to(message, text=f"{error}")
 
 
 @bot.message_handler(func=lambda message: message.text == "Как изменить настройки ❔")
@@ -51,23 +70,32 @@ def settings(message):
 def change_settings(message):
     # заглушка для действия "Как изменить настройки"
     curr_config = read_config()
+    keys = {
+        "margin_type": "режим маржи.",
+        "margin_percent": "процент входа в сделку от баланса.",
+        "long_positions_amount": "соотношение лонговых и шортовых позиций, считается так: "
+                                 "balance * long_positions_amount / 100, и если общий размер всех лонговых позиций "
+                                 "меньше, чем получившееся число - то открываем позицию.",
+        "short_positions_amount": "соотношение лонговых и шортовых позиций, считается так: "
+                                 "balance * long_positions_amount / 100, и если общий размер всех шортовых позиций "
+                                 "меньше, чем получившееся число - то открываем позицию.",
+        "available_drawdown": "допустимая просадка по PNL, при которой можно открывать позицию.",
+        "min_to_close": "минимальное расстояние для закрытия позиции от средней в процентах.",
+        "min_to_add_on": "минимальное расстояние для усреднения от последнего усреднения в процентах.",
+        "add_on_kf": "коэф. на который умножается расстояние до усреднения при каждом ордере.",
+        "martin_kf": "коэф. мартингейла, на это число будет умножаться последнее исполненое усреднение.",
+        "take_profit": "расстояние от средней до тейк-профита, пересчитывается при каждом мажоре и миноре.",
+        "take_profits_qty": "количество тейк-профитов.",
+        "ignore_symbols": "обязательно в формате ['', '', ''], если допустишь ошибку, не поставишь скобку, "
+                          "кавычку или запятую - весь бот сломается, будь осторожен."
+    }
     text = f"Как обновить настройки?\n\n" \
            f"Скопируй данные снизу кликом по ним, и заполни:\n" \
            f"<code>{json.dumps(curr_config, indent=2)}</code>\n\n" \
-           f"margin_percent - процент входа в сделку от баланса.\n\n" \
-           f"leverage: любое целое число, но будь внимательнее, некоторые монеты не поддерживают большие плечи.\n\n" \
-           f"margin_type: CROSSED или ISOLATED, обязательно в кавычках.\n\n" \
-           f"min_to_close: минимальное расстояние для закрытия позиции от средней в процентах.\n\n" \
-           f"min_to_add_on: минимальное расстояние для усреднения от последнего усреднения в процентах.\n\n" \
-           f"martin_kf: коэф. мартингейла, на это число будет умножаться последнее исполненое усреднение.\n\n" \
-           f"max_opened_positions: максимальное количество открытых позиций.\n\n" \
-           f"add_on_kf: коэф. на который умножается расстояние до усреднения при каждом ордере.\n\n" \
-           f"trailing_take_profit: может быть либо true либо false, без кавычек, с маленькой буквы. " \
-           f"Если true - то закрывается только верхний ордер, и выставляется тейк-профит на середину между " \
-           f"ср. ценой и ценой закрытия. Если false - позиция закрывается полностью.\n\n" \
-           f"ignore_symbols: обязательно в формате ['', '', ''], если допустишь ошибку, не поставишь скобку, " \
-           f"кавычку или запятую - весь бот сломается, будь осторожен\n\n" \
-           f"Поле того, как ты их заполнил нужными значениями просто отправь их боту."
+
+    for key in curr_config:
+        text += f"<b>{key}</b>: {keys[key]}\n\n"
+
     bot.reply_to(message, text, reply_markup=create_keyboard())
 
 
